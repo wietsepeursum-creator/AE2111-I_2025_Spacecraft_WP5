@@ -33,4 +33,21 @@ AISI201 = Material(28e+6,0.27,7999.4925,275.79)
 print(shell.A)
 print(shell.I)
 
-shell.mass(AL2024T6.density)
+print(shell.mass(AL2024T6.density))
+
+def euler_buckling(Structure,Material):
+
+    E = Material.E
+
+    A = Structure.A
+    L = Structure.L
+    I = Structure.I
+
+    sigma_max = Material.max_stress
+
+    sigma_cr = ((m.pi**2*E*I)/(A*L**2))/10e6
+
+    print(sigma_cr,"Mpa")
+    return(sigma_cr)
+
+euler_buckling(shell,AL7075)
