@@ -1,8 +1,7 @@
 import numpy as np
 import math
 
-test
-test1
+
 
 def new_dimensions(a_xtotal, a_ytotal, ):
     #Define constants 
