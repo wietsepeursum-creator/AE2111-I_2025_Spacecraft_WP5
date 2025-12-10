@@ -21,5 +21,10 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         F_xnew = (a_xtotal*list_mass[i]/n_fasteners)
         F_ynew = (a_ytotal*list_mass[i]/n_fasteners)
         F_znew = (a_ztotal*list_mass[i]/n_fasteners)
+        #Calculate force ratios
+        X_ratio = F_xnew/ F_x
+        Y_ratio = F_ynew/ F_y
+        Z_ratio = F_znew/ F_z
+        #Check which ratio is the largest, this will be the ratio used
         
     
