@@ -1,9 +1,12 @@
 PREVIOUS BACKPLATE DATA
 
     PREVIOUS FORCES
-Fy =
-Fx =
-Fz =
+
+Fx = 104.54 #N "left"
+Fz = 36.65  #N "up" 
 
   PREVIOUS DIMENSIONS
+w = 15.2 #mm
+bolt size = 2 #mm
+width h = 36 #mm
 
