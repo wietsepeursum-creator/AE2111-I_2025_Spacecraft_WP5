@@ -3,9 +3,7 @@ import math
 
 
 def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
-                #Define constants 
-def new_dimensions(a_xtotal, a_ytotal, ):
-    #Define constants 
+                #Define constants
     #PREVIOUS BACKPLATE DATA
     #    PREVIOUS FORCES
     F_x = 209.07 #N "left"
@@ -16,7 +14,6 @@ def new_dimensions(a_xtotal, a_ytotal, ):
     D = 2 #mm
     H = 36 #mm
     T = 3 #mm
-<<<<<<< HEAD
 
     #Iterate for the nimber of panels
     for i in range(len(list_mass)):
@@ -26,5 +23,3 @@ def new_dimensions(a_xtotal, a_ytotal, ):
         F_znew = (a_ztotal*list_mass[i]/n_fasteners)
         
     
-=======
->>>>>>> 147bc39f75af0b7bee853854a2c85bcb729c62a4
