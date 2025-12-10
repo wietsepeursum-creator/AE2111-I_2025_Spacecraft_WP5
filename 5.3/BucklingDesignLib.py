@@ -49,5 +49,5 @@ def euler_buckling(Structure,Material):
 
     print(sigma_cr,"Mpa")
     return(sigma_cr)
-
+a=10
 euler_buckling(shell,AL7075)
