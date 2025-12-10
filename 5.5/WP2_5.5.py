@@ -3,3 +3,4 @@ import math
 
 #Define constants 
 print ("hello world")
+print("FUCK")
