@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 def fastener_selection(w,size_outside_e1,size_outside_e2,min_size_inbetween,bolt_size_start, t_2_lug_start):
     number_of_bolts = 2
@@ -144,3 +145,4 @@ def total(material_number, w, length, bolt_size_start, Fx_cg, Fz_cg, t_2_lug_sta
     return updated_D_and_T2
 
 print(total(0,10,50,1,0.17,0.77,3))
+
