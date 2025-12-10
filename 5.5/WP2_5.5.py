@@ -26,5 +26,5 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         Y_ratio = F_ynew/ F_y
         Z_ratio = F_znew/ F_z
         #Check which ratio is the largest, this will be the ratio used
-        
+
     
