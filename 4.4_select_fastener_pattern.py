@@ -1,5 +1,6 @@
 import math
 import numpy as np
+import matplotlib.pyplot as plt
 
 def fastener_selection(w,size_outside_e1,size_outside_e2,min_size_inbetween,bolt_size_start, t_2_lug_start):
     number_of_bolts = 2
@@ -108,6 +109,7 @@ def bearing_check(loads_per_hole, layout, material_choice):   # this code minimi
 
 
     return D, t_2_lug
+
 
 
         
