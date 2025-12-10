@@ -19,6 +19,9 @@ class Shell:
         self.A = 2*m.pi*self.R*self.t
         self.I = self.R**3*m.pi*self.t
 
+    def mass(self,density):
+        return(self.R*m.pi*self.L*self.t*2*density)
+
 a=1
 shell = Shell(1,0.001,2)
 
@@ -29,3 +32,5 @@ AISI201 = Material(28e+6,0.27,7999.4925,275.79)
 
 print(shell.A)
 print(shell.I)
+
+shell.mass(AL2024T6.density)
