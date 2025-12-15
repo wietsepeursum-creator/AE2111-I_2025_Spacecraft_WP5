@@ -47,6 +47,7 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         B_x = Mass_new * a_xtotal + F_xnew
         B_y = Mass_new * a_ytotal + F_ynew
         B_z = Mass_new * a_ztotal + F_znew
+        return W_new, D_new, H_new, T_new, Mass_new, B_x, B_y, B_z
         
 
 
