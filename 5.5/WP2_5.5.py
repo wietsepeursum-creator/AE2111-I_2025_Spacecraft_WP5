@@ -49,14 +49,9 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         B_x = Mass_new * a_xtotal + F_xnew
         B_y = Mass_new * a_ytotal + F_ynew
         B_z = Mass_new * a_ztotal + F_znew
-<<<<<<< HEAD
         #Append results in list in said order, with every [i] being the level
         Results_list.append((W_new, D_new, H_new, T_new, B_x, B_y, B_z))
     return (Results_list)
-=======
-        return W_new, D_new, H_new, T_new, Mass_new, B_x, B_y, B_z
-        
->>>>>>> cd7c64aa2a7afe7ba9b910c72573206ee31bc978
 
 
 
