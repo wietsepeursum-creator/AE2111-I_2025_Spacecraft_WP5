@@ -43,7 +43,7 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         H_new = H * Useful_ratio
         T_new = T * Useful_ratio
         #Calculate mass
-        Mass_new = Mass * Useful_ratio
+        Mass_new = Mass * Useful_ratio**3
         #Calculate forces on main cylindrical shell, following conventions in reader
         #Positive x - right, y - in, z - down
         B_x = Mass_new * a_xtotal + F_xnew
