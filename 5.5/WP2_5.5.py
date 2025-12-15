@@ -15,7 +15,9 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
     H = 36 #mm
     T = 3 #mm
 
-    #Iterate for the nimber of panels
+    
+
+    #Iterate for the number of panels
     for i in range(len(list_mass)):
         #Calculate new forces
         F_xnew = (a_xtotal*list_mass[i]/n_fasteners)
@@ -25,6 +27,15 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         X_ratio = F_xnew/ F_x
         Y_ratio = F_ynew/ F_y
         Z_ratio = F_znew/ F_z
+        #Create empty list to store the ratios within the loop to reset it for each level
+        Ratio_list = []
+        #Append the ratios to the list
+        Ratio_list.append(X_ratio)
+        Ratio_list.append(Y_ratio)
+        Ratio_list.append(Z_ratio)
         #Check which ratio is the largest, this will be the ratio used
+        Useful_ratio = max(Ratio_list)
+        #Calculate new dimensions
+        
 
     
