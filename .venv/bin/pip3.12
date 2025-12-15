@@ -1,4 +1,4 @@
-#!/workspaces/AE2111-I_2025_Spacecraft_WP5/.venv/bin/python3
+#!/workspaces/AE2111-I_2025_Spacecraft_WP5/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
