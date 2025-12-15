@@ -6,8 +6,6 @@ a_ytotal =
 a_ztotal = 
 
 
-
-
 def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
                 #Define constants
     #PREVIOUS BACKPLATE DATA
