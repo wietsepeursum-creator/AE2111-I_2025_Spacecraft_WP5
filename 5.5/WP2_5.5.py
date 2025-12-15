@@ -36,6 +36,12 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         #Check which ratio is the largest, this will be the ratio used
         Useful_ratio = max(Ratio_list)
         #Calculate new dimensions
-        
+        W_new = W * Useful_ratio
+        D_new = D * Useful_ratio
+        H_new = H * Useful_ratio
+        T_new = T * Useful_ratio
+        #Calculate mass
+        #Calculate forces on main cylindrical shell
+
 
     
