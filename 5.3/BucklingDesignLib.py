@@ -2,13 +2,15 @@
 import math as m 
 
 import matplotlib.pyplot as plt
+from tabulate import tabulate
 
 class Material:
-    def __init__(self,E,v,rho,sigma_max):
+    def __init__(self,E,v,rho,sigma_max,name):
         self.E = E
         self.v = v 
         self.density =rho
         self.max_stress = sigma_max
+        self.name = name
 
 
 class Shell:
@@ -17,27 +19,28 @@ class Shell:
         self.R = R
         self.t = t
         self.L = L 
-        self.A = 2*m.pi*self.R*self.t
-        self.I = self.R**3*m.pi*self.t
+        
+    def A(self):
+        return(2*m.pi*self.R*self.t)
+    def mass(self,material):
+        return(self.R*m.pi*self.L*self.t*2*material.density)
+    def I(self):
+        return(self.R**3*m.pi*self.t)
 
-    def mass(self,density):
-        return(self.R*m.pi*self.L*self.t*2*density)
 
-
-
-AL2024T6 = Material(10.5e+6,0.33,2795.67,406.791)
-AL7075 = Material(10.3e+6,0.33,2795.67,275.79)
-Ti6Al4V = Material(16e+6,0.31,4428.78,827.371)
-AISI201 = Material(28e+6,0.27,7999.4925,275.79)
-
+AL2024T6 = Material(10.5e+6,0.33,2795.67,406.791,"AL2024T6")
+AL7075 = Material(10.3e+6,0.33,2795.67,275.79,"AL7075")
+Ti6Al4V = Material(16e+6,0.31,4428.78,827.371,"Ti6Al4V")
+AISI201 = Material(28e+6,0.27,7999.4925,275.79,"AISI201")
+Materials =[AL2024T6,AL7075,Ti6Al4V,AISI201]
 
 def euler_buckling(Structure,Material):
 
     E = Material.E
 
-    A = Structure.A
+    A = Structure.A()
     L = Structure.L
-    I = Structure.I
+    I = Structure.I()
 
     sigma_max = Material.max_stress
 
@@ -65,26 +68,53 @@ def shell_buckling(Structure,Material,pressure):
     sigma_shell = sigma_shell/(10**6) #conversion to MPa
     return(sigma_shell)
 
+Launch_force = 32000 #N roughly 800kg times a load factor of 4
 
-Stress =[]
-thickness = []
+results =[]
 
-#Assumed Values
-shell = Shell(0.2,0.001,3)
+for MAT in Materials:
+    found = False
+    R_min = 0
+    Stress_s =[]
+    Stress_e = [] 
+    thickness = []
+    Radius = []
+    Launch_stress = []
 
-for i in range(1,100,1):
-    shell.t= 0.0001*i 
-    sigma = shell_buckling(shell,AL7075,0.5)
-    thickness.append(shell.t)
-    Stress.append(sigma)
+    #Assumed Values
 
-# Plot the sine and cosine lines in a graph
-plt.plot(thickness, Stress)
-# Add a title, axis labels, and a legend
-plt.title('Shell Buckling vs Thickness at a fixed R')
-plt.xlabel('t [m]')
-plt.ylabel('shell stress, Mpa')
+    shell = Shell(0.2,0.03,2.7)
+
+    for i in range(100,1500,10):
+        shell.R= 0.001*i
+        #shell.t = shell.R/10
+        sigma_s = shell_buckling(shell,MAT,0.5)
+        sigma_e = euler_buckling(shell,MAT)
+        Radius.append(shell.R)
+        Stress_s.append(sigma_s)
+        Stress_e.append(sigma_e)
+        sigma_l = (Launch_force/shell.A())/10**6
+        Launch_stress.append(sigma_l)
 
 
-# Don't forget to call show()!
-plt.show()
+        if (round(sigma_e,2) >= round(sigma_l,2)) and (round(sigma_s,2) >= round(sigma_l,2)) and not found:
+            R_min = shell.R
+            mass = shell.mass(MAT)   
+            results.append([R_min,mass,MAT.name])
+            found = True
+
+    # Plot the sine and cosine lines in a graph
+    plt.plot(Radius, Stress_s)
+    plt.plot(Radius,Stress_e)
+    plt.plot(Radius,Launch_stress)
+    # Add a title, axis labels, and a legend
+    plt.title('Stresses at varying R, using: ' + MAT.name)
+    plt.xlabel('R [m]')
+    plt.ylabel('shell stress, Mpa')
+    plt.legend(('Shell', 'Euler','Launch'))
+
+    # Don't forget to call show()!
+    plt.show()
+
+
+print(tabulate(results,headers=["R min [m]","Shell Mass","Material"]))
