@@ -1,6 +1,7 @@
 import numpy as np
 import math
 
+
 def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
                 #Define constants
     #PREVIOUS BACKPLATE DATA
@@ -13,7 +14,7 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
     D = 2 #mm
     H = 36 #mm
     T = 3 #mm
-    Mass = 0.009 #kg
+    Mass = f
 
     
 
@@ -40,15 +41,9 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         D_new = D * Useful_ratio
         H_new = H * Useful_ratio
         T_new = T * Useful_ratio
-        #Calculate mass
-        Mass_new = Mass * Useful_ratio
-        #Calculate forces on main cylindrical shell, following conventions in reader
-        #Positive x - right, y - in, z - down
-        B_x = Mass_new * a_xtotal + F_xnew
-        B_y = Mass_new * a_ytotal + F_ynew
-        B_z = Mass_new * a_ztotal + F_znew
-        
+        #Calculate new mass
+    
+        #Calculate forces on main cylindrical shell
 
 
-
-
+    
