@@ -44,7 +44,10 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         Mass_new = Mass * Useful_ratio
         #Calculate forces on main cylindrical shell, following conventions in reader
         #Positive x - right, y - in, z - down
-        B_x = Mass_new
+        B_x = Mass_new * a_xtotal + F_xnew
+        B_y = Mass_new * a_ytotal + F_ynew
+        B_z = Mass_new * a_ztotal + F_znew
+        
 
 
 
