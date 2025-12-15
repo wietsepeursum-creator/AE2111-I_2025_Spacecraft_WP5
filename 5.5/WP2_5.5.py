@@ -9,8 +9,8 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
     F_z = 73.3  #N "up" 
     F_y = 195.98  #N "out"
     #  PREVIOUS DIMENSIONS
-    W = 15.2 #mm
-    D = 2 #mm
+    W = 27.5 #mm
+    D = 5 #mm
     H = 36 #mm
     T = 3 #mm
     Mass = 0.009 #kg
@@ -43,16 +43,16 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         H_new = H * Useful_ratio
         T_new = T * Useful_ratio
         #Calculate mass
-<<<<<<< HEAD
-        Mass_new = Mass * (Useful_ratio) ** 3
-=======
         Mass_new = Mass * Useful_ratio**3
->>>>>>> 0869e80f9e5ca61c5383099fd230cacfe7d16d8c
         #Calculate forces on main cylindrical shell, following conventions in reader
         #Positive x - right, y - in, z - down
         B_x = Mass_new * a_xtotal + F_xnew
         B_y = Mass_new * a_ytotal + F_ynew
         B_z = Mass_new * a_ztotal + F_znew
+        #Take into account all attachemnts impose force on cylinder
+        B_x = B_x * n_fasteners
+        B_y = B_y * n_fasteners
+        B_z = B_z * n_fasteners
         #Append results in list in said order, with every [i] being the level
         Results_list.append((W_new, D_new, H_new, T_new, B_x, B_y, B_z))
     return (Results_list)
