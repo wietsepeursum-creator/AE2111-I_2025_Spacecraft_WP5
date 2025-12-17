@@ -94,7 +94,7 @@ def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_
     #function returns a list of the masses of all panels (look at the numbering image for indexes), and the total sandwich panel mass
     return mass_list, total_panel_mass
 
-def force_on_lug_propellant_tank(n_lugs_propellant, radius_propellant_tank, Fx, Fy):
+def force_on_lug_propellant_tank(n_lugs_propellant, radius_propellant_tank, Fx, Fy, alpha):  #alpha angle between lugs in radians, can be chosen
             #DEFINE CONSTANTS
     m_propellant = 6.76 + 7.7  # kg, both tank and fuel
     g = 9.80665  # m/s^2
@@ -112,27 +112,68 @@ def force_on_lug_propellant_tank(n_lugs_propellant, radius_propellant_tank, Fx, 
     #calculate the Fx and Fy and Fz acting at the cog of the propellant tank, based on accelerations
     Fx = ax_max * m_propellant
     Fy = ay_max * m_propellant
-    Fz = az_max * m_propellant
+    Fz = 0
 
     #divide Fx and Fy and Fz by 2, since the lugs are placed in 2 columns (see picture)
     Fx = Fx / 2
     Fy = Fy / 2
-    Fz = Fz / 2
-
+    Fz = Fz /2
 
         #CALCULATING REACTION FORCES ON 2 LUGS
     #reference Loic's calculation sheet to understand these equations
     #using coordinate system as in the reader
     R_upper_y = -r/L * Fx - 0.5 * Fy
     R_lower_y = r/L * Fx - 0.5 * Fy
+    R_upper_x = 0.5 * Fx
+    R_lower_x = 0.5 * Fx
+    R_upper_z = 0
+    R_lower_z = 0
 
-    R_upper_x = R_lower_x = 0.5 * Fx
-
-
-    #if more than 2 lugs per column are used, distribute the force per lug over that amount
+    # if more than 2 lugs per column are used, distribute the force per lug over that amount
     R_upper_y = R_upper_y / n_lugs_propellant * 2
     R_lower_y = R_lower_y / n_lugs_propellant * 2
     R_upper_x = R_upper_x / n_lugs_propellant * 2
     R_lower_x = R_lower_x / n_lugs_propellant * 2
     R_upper_z = R_upper_z / n_lugs_propellant * 2
     R_lower_z = R_lower_z / n_lugs_propellant * 2
+
+    #create lists for the forces [Fx,Fy,Fz] per lug IN CASE 1:
+            forces_upper_CASE1 = [R_upper_x, R_upper_y, R_upper_z]
+            force_lower_CASE1 = [R_lower_x, R_lower_y, R_lower_z]
+
+
+            # CASE 2: Fz IS AT MAX AND Fy IS 0
+    # calculate the Fx and Fy and Fz acting at the cog of the propellant tank, based on accelerations
+    Fx = ax_max * m_propellant
+    Fy = 0
+    Fz = az_max * m_propellant
+
+    # divide Fx and Fy and Fz by 2, since the lugs are placed in 2 columns (see picture)
+    Fx = Fx / 2
+    Fy = Fy / 2
+    Fz = Fz / 2
+
+    # CALCULATING REACTION FORCES ON 2 LUGS
+    # reference Loic's calculation sheet to understand these equations
+    # using coordinate system as in the reader
+    R_upper_y = - Fz/ ( 2 * math.tan(alpha/2) )
+    R_lower_y = Fz/ ( 2 * math.tan(alpha/2) )
+    R_upper_x = 0.5 * Fx
+    R_lower_x = 0.5 * Fx
+    R_upper_z = 0.5 * Fz
+    R_lower_z = 0.5 * Fz
+
+    # if more than 2 lugs per column are used, distribute the force per lug over that amount
+    R_upper_y = R_upper_y / n_lugs_propellant * 2
+    R_lower_y = R_lower_y / n_lugs_propellant * 2
+    R_upper_x = R_upper_x / n_lugs_propellant * 2
+    R_lower_x = R_lower_x / n_lugs_propellant * 2
+    R_upper_z = R_upper_z / n_lugs_propellant * 2
+    R_lower_z = R_lower_z / n_lugs_propellant * 2
+
+    # create lists for the forces [Fx,Fy,Fz] per lug IN CASE 1:
+    forces_upper_CASE1 = [R_upper_x, R_upper_y, R_upper_z]
+    force_lower_CASE1 = [R_lower_x, R_lower_y, R_lower_z]
+
+
+
