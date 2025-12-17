@@ -85,7 +85,7 @@ def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_
     #calculate the mass of the transverse panels (they are all equal), and append them to the mass list
     for i in range(n_floors):
         mass_transverse = area_transverse* (n_fabric_transverse * t_fabric * rho_fabric + t_core * rho_core)
-        mass_list += mass_transverse
+        mass_list += [mass_transverse]
 
     total_panel_mass = sum(mass_list)
 
