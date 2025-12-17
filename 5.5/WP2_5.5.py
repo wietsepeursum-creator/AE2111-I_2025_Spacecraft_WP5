@@ -65,16 +65,30 @@ def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_
     rho_core = 48.2  # kg/m^3
     rho_fabric = 1611  # kg/m^3
 
+    #create empty list for the masses of all panels
+    mass_list = []
 
+            #CLOSING PANELS
+    # calculate the amount of weave fabric layers that fit in the minimum thickness, rounded up
+    n_fabric_closing = math.ceil((closing_thickness - t_core) / t_fabric)
+    areas_closing_list = [ width * L, width * L, depth * L, depth * L, width * depth, width * depth]
 
+    #for a specific closing panel, calculate the mass (based on area) and append to list
+    for area in areas_closing_list:
+        mass_closing_panel = area * (n_fabric_closing * t_fabric * rho_fabric + t_core * rho_core)
+        mass_list += [mass_closing_panel]
+
+           #TRANSVERSE PANELS
     # calculate the amount of weave fabric layers that fit in the minimum thickness, rounded up
     n_fabric_transverse = math.ceil((transverse_thickness - t_core) / t_fabric)
     area_transverse = width * depth - math.pi * R ** 2
-    #calculate the mass of the transverse panels
-    mass_transverse = area_transverse* (n_fabric_transverse * t_fabric * rho_fabric + t_core * rho_core)
+    #calculate the mass of the transverse panels (they are all equal), and append them to the mass list
+    for i in range(n_floors):
+        mass_transverse = area_transverse* (n_fabric_transverse * t_fabric * rho_fabric + t_core * rho_core)
+        mass_list += mass_transverse
 
+    total_panel_mass = sum(mass_list)
 
-
-print ("hello inez")
-print ("hello test")
+    #function returns a list of the masses of all panels (look at the numbering image for indexes), and the total sandwich panel mass
+    return mass_list, total_panel_mass
 
