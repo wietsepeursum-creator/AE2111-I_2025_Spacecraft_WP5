@@ -57,6 +57,23 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         Results_list.append((W_new, D_new, H_new, T_new, B_x, B_y, B_z))
     return (Results_list)
 
+def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_floors):
+        # Define constants
+    #Properties of the materials
+    t_core = 0.015  # m the thickness of the nomex core
+    t_fabric = 0.00019805  # m thickness of weave fabric PER LAYER
+    rho_core = 48.2  # kg/m^3
+    rho_fabric = 1611  # kg/m^3
+
+
+
+    # calculate the amount of weave fabric layers that fit in the minimum thickness, rounded up
+    n_fabric_transverse = math.ceil((transverse_thickness - t_core) / t_fabric)
+    area_transverse = width * depth - math.pi * R ** 2
+    #calculate the mass of the transverse panels
+    mass_transverse = area_transverse* (n_fabric_transverse * t_fabric * rho_fabric + t_core * rho_core)
+
+
 
 print ("hello inez")
 print ("hello test")
