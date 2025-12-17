@@ -57,7 +57,9 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         Results_list.append((W_new, D_new, H_new, T_new, B_x, B_y, B_z))
     return (Results_list)
 
-def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_floors):
+def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_floors):1
+    #transverse_thickness (thickness of the transverse panels) we should get from cian and liv, as well as the width, depth, L, R and n_floors, closing_thickness (thickness of the closing panels) we should get from can
+
         # Define constants
     #Properties of the materials
     t_core = 0.015  # m the thickness of the nomex core
