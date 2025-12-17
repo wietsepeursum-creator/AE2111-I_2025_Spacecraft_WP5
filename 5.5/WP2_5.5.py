@@ -57,7 +57,7 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         Results_list.append((W_new, D_new, H_new, T_new, B_x, B_y, B_z))
     return (Results_list)
 
-def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_floors):1
+def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_floors):
     #transverse_thickness (thickness of the transverse panels) we should get from cian and liv, as well as the width, depth, L, R and n_floors, closing_thickness (thickness of the closing panels) we should get from can
 
         # Define constants
@@ -94,7 +94,7 @@ def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_
     #function returns a list of the masses of all panels (look at the numbering image for indexes), and the total sandwich panel mass
     return mass_list, total_panel_mass
 
-def force_on_lug_propellant_tank(n_lugs_propellant, radius_propellant_tank, Fx, Fy, alpha):  #alpha angle between lugs in radians, can be chosen
+def force_on_lug_propellant_tank(n_lugs_propellant, alpha):  #alpha angle between lugs in radians, can be chosen
             #DEFINE CONSTANTS
     m_propellant = 6.76 + 7.7  # kg, both tank and fuel
     g = 9.80665  # m/s^2
@@ -129,17 +129,13 @@ def force_on_lug_propellant_tank(n_lugs_propellant, radius_propellant_tank, Fx, 
     R_upper_z = 0
     R_lower_z = 0
 
-    # if more than 2 lugs per column are used, distribute the force per lug over that amount
-    R_upper_y = R_upper_y / n_lugs_propellant * 2
-    R_lower_y = R_lower_y / n_lugs_propellant * 2
-    R_upper_x = R_upper_x / n_lugs_propellant * 2
-    R_lower_x = R_lower_x / n_lugs_propellant * 2
-    R_upper_z = R_upper_z / n_lugs_propellant * 2
-    R_lower_z = R_lower_z / n_lugs_propellant * 2
-
     #create lists for the forces [Fx,Fy,Fz] per lug IN CASE 1:
-            forces_upper_CASE1 = [R_upper_x, R_upper_y, R_upper_z]
-            force_lower_CASE1 = [R_lower_x, R_lower_y, R_lower_z]
+    forces_upper_CASE1 = np.array([R_upper_x, R_upper_y, R_upper_z])
+    forces_lower_CASE1 = np.array([R_lower_x, R_lower_y, R_lower_z])
+
+    # if more than 2 lugs per column are used, distribute the force per lug over that amount
+    forces_upper_CASE1 = forces_upper_CASE1 / n_lugs_propellant * 2
+    forces_lower_CASE1 = forces_lower_CASE1 / n_lugs_propellant * 2
 
 
             # CASE 2: Fz IS AT MAX AND Fy IS 0
@@ -163,17 +159,14 @@ def force_on_lug_propellant_tank(n_lugs_propellant, radius_propellant_tank, Fx, 
     R_upper_z = 0.5 * Fz
     R_lower_z = 0.5 * Fz
 
+
+    # create array for the forces [Fx,Fy,Fz] per lug IN CASE 2:
+    forces_upper_CASE2 = np.array([R_upper_x, R_upper_y, R_upper_z])
+    forces_lower_CASE2 = np.array([R_lower_x, R_lower_y, R_lower_z])
+
     # if more than 2 lugs per column are used, distribute the force per lug over that amount
-    R_upper_y = R_upper_y / n_lugs_propellant * 2
-    R_lower_y = R_lower_y / n_lugs_propellant * 2
-    R_upper_x = R_upper_x / n_lugs_propellant * 2
-    R_lower_x = R_lower_x / n_lugs_propellant * 2
-    R_upper_z = R_upper_z / n_lugs_propellant * 2
-    R_lower_z = R_lower_z / n_lugs_propellant * 2
+    forces_upper_CASE2 = forces_upper_CASE2 / n_lugs_propellant * 2
+    forces_lower_CASE2 = forces_lower_CASE2 / n_lugs_propellant * 2
 
-    # create lists for the forces [Fx,Fy,Fz] per lug IN CASE 1:
-    forces_upper_CASE1 = [R_upper_x, R_upper_y, R_upper_z]
-    force_lower_CASE1 = [R_lower_x, R_lower_y, R_lower_z]
-
-
+    return forces_upper_CASE1, forces_lower_CASE1, forces_upper_CASE2, forces_lower_CASE2
 
