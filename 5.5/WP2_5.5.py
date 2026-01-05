@@ -167,16 +167,15 @@ def force_on_lug_propellant_tank(n_lugs_propellant, alpha): #LOIC AND INEZ 5.4 a
     # if more than 2 lugs per column are used, distribute the force per lug over that amount
     forces_upper_CASE2 = forces_upper_CASE2 / n_lugs_propellant * 2
     forces_lower_CASE2 = forces_lower_CASE2 / n_lugs_propellant * 2
+    return [forces_upper_CASE1, forces_lower_CASE1, forces_upper_CASE2, forces_lower_CASE2]
 
-    return forces_upper_CASE1, forces_lower_CASE1, forces_upper_CASE2, forces_lower_CASE2
-
-def propellant_lugs_mass(forces_list_new):
+def mass_scaling_propellant_lugs(forces_list_new):
                 #Define constants
     #PREVIOUS BACKPLATE DATA
     #    PREVIOUS FORCES
-    forces_list_old = [209.07, 195.98, 73.3]
+    forces_list_old = [209.07, 195.98, 73.3] #N
     #  PREVIOUS DIMENSIONS
-    Mass = 0.009 #kg
+    mass_old = 0.009 #kg
 
     max_ratio = 0
     for i in range(len(forces_list_new)):
@@ -185,7 +184,23 @@ def propellant_lugs_mass(forces_list_new):
         current_ratio = force_new / force_old
         max_ratio = max(current_ratio, max_ratio)
 
-    Mass
+    mass_new = mass_old * mass_ratio
+    return mass_new
+
+def total_mass_propellant_lugs(alpha):
+    n_lugs_options = [2 , 4 , 6]  #calculations will be made with these values (times 2 because this is per side)
+    # create empty list
+    masses_per_lug = []  #this list will consist of the mass per lug that is needed for the amount of lugs option
+    for n_option in n_lugs_options:
+        forces = force_on_lug_propellant_tank(n_option, alpha)  #this is a list that consists of 4 lists of [fx, fy, fz]. There are 4 of them because these forces are different in the upper and lower lugs, and in two cases ([[forces_upper_CASE1, forces_lower_CASE1, forces_upper_CASE2, forces_lower_CASE2])
+        max_lug_mass = 0
+        for forces_list in forces:
+            lug_mass = mass_scaling_propellant_lugs(forces_list)
+            max_lug_mass = max(lug_mass, max_lug_mass)
+        total_mass = n_option * 2 * max_lug_mass
+        masses_per_lug += (max_lug_mass, total_mass)
+    return masses_per_lug
+
 
 
 
