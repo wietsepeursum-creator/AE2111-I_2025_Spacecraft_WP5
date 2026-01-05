@@ -169,9 +169,10 @@ def force_on_lug_propellant_tank(n_lugs_propellant, alpha): #LOIC AND INEZ 5.4 a
     forces_lower_CASE2 = forces_lower_CASE2 / n_lugs_propellant * 2
     return [forces_upper_CASE1, forces_lower_CASE1, forces_upper_CASE2, forces_lower_CASE2]
 
-def mass_scaling_propellant_lugs(forces_list_new):
-                #Define constants
-    #PREVIOUS BACKPLATE DATA
+def mass_scaling_propellant_lugs(forces_list_new): #LOIC AND INEZ 6.4
+    #This function takes as an input the forces that work on the lug in a specific configuration, and scales them with the old forces to calculate the mass of the new lug
+
+    #DATA FROM PREVIOUS LUG
     #    PREVIOUS FORCES
     F_x_old = 489 #N
     F_y_old = 146.6 #N
@@ -180,30 +181,45 @@ def mass_scaling_propellant_lugs(forces_list_new):
     #  PREVIOUS DIMENSIONS
     mass_old = 0.009 #kg
 
+    #DATA ON NEW LUG
     F_x_new = forces_list_new[0]
     F_y_new = forces_list_new[1]
     F_z_new = forces_list_new[2]
     resultant_new =  (F_x_new**2 + F_y_new**2 + F_z_new**2)**0.5
 
+    #calculating the ratio between old and new forces
     ratio = resultant_new / resultant_old
     mass_new = mass_old * ratio
+    #returns the new mass of lug in this configuration
     return mass_new
 
-def total_mass_propellant_lugs(alpha):
-    n_lugs_options = [2 , 4 , 6]  #calculations will be made with these values (times 2 because this is per side)
-    # create empty list
-    masses_per_lug = []  #this list will consist of the mass per lug that is needed for the amount of lugs option
+def total_mass_propellant_lugs(alpha):  #LOIC AND INEZ 6.5
+    #FINAL FUNCTION THAT SHOULD BE CALLED FOR PROPELLANT LUGS MASS
+    #it chooses the amount of lugs and calculates the total weight
+
+    n_lugs_options = [2 , 4 , 6]  #calculations will be made with these amounts of lugs (times 2 because this is per side), and then in the end one of them is chosen
+    # create empty list that will store the weight of each lug dependend on these options [2,4,6] above
+    masses_per_lug = []
+
     for n_option in n_lugs_options:
-        forces = force_on_lug_propellant_tank(n_option, alpha)  #this is a list that consists of 4 lists of [fx, fy, fz]. There are 4 of them because these forces are different in the upper and lower lugs, and in two cases ([[forces_upper_CASE1, forces_lower_CASE1, forces_upper_CASE2, forces_lower_CASE2])
+        #call function that calculates loads on lugs based on the amount chosen
+        forces = force_on_lug_propellant_tank(n_option, alpha)  #this is a list that consists of 4 lists of [fx, fy, fz]. There are 4 of them because these forces are different in the upper and lower lugs, and in two cases ([forces_upper_CASE1, forces_lower_CASE1, forces_upper_CASE2, forces_lower_CASE2])
         max_lug_mass = 0
+
+        #calculate the mass for each of the entries in the force list [forces_upper_CASE1, forces_lower_CASE1, forces_upper_CASE2, forces_lower_CASE2]
         for forces_list in forces:
             lug_mass = mass_scaling_propellant_lugs(forces_list)
+            #for each of the four entries it calculates the mass, and takes the highest mass
             max_lug_mass = max(lug_mass, max_lug_mass)
-        total_mass = n_option * 2 * max_lug_mass
-        masses_per_lug += [(max_lug_mass, total_mass)]
-    total_mass = max(masses_per_lug)
-    return total_mass[1]
 
+        #total mass is the mass per lug times the number of lugs times 2 (rows)
+        total_mass = n_option * 2 * max_lug_mass
+        #appends to the list
+        masses_per_lug += [(max_lug_mass, total_mass)]
+
+    total_mass = max(masses_per_lug)
+    #return the total mass of all lugs in kg
+    return total_mass[1]
 
 
 
