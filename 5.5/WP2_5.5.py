@@ -173,18 +173,20 @@ def mass_scaling_propellant_lugs(forces_list_new):
                 #Define constants
     #PREVIOUS BACKPLATE DATA
     #    PREVIOUS FORCES
-    forces_list_old = [209.07, 195.98, 73.3] #N
+    F_x_old = 489 #N
+    F_y_old = 146.6 #N
+    F_z_old = 146.6 #N
+    resultant_old = (F_x_old**2 + F_y_old**2 + F_z_old**2)**0.5
     #  PREVIOUS DIMENSIONS
     mass_old = 0.009 #kg
 
-    max_ratio = 0
-    for i in range(len(forces_list_new)):
-        force_old = forces_list_old[i]
-        force_new = forces_list_new[i]
-        current_ratio = force_new / force_old
-        max_ratio = max(current_ratio, max_ratio)
+    F_x_new = forces_list_new[0]
+    F_y_new = forces_list_new[1]
+    F_z_new = forces_list_new[2]
+    resultant_new =  (F_x_new**2 + F_y_new**2 + F_z_new**2)**0.5
 
-    mass_new = mass_old * mass_ratio
+    ratio = resultant_new / resultant_old
+    mass_new = mass_old * ratio
     return mass_new
 
 def total_mass_propellant_lugs(alpha):
@@ -198,8 +200,9 @@ def total_mass_propellant_lugs(alpha):
             lug_mass = mass_scaling_propellant_lugs(forces_list)
             max_lug_mass = max(lug_mass, max_lug_mass)
         total_mass = n_option * 2 * max_lug_mass
-        masses_per_lug += (max_lug_mass, total_mass)
-    return masses_per_lug
+        masses_per_lug += [(max_lug_mass, total_mass)]
+    total_mass = max(masses_per_lug)
+    return total_mass[1]
 
 
 
