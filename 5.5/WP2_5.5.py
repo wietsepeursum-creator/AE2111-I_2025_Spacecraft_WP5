@@ -57,7 +57,7 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         Results_list.append((W_new, D_new, H_new, T_new, B_x, B_y, B_z))
     return (Results_list)
 
-def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_floors):
+def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_floors): #LOIC AND INEZ 5.6
     #transverse_thickness (thickness of the transverse panels) we should get from cian and liv, as well as the width, depth, L, R and n_floors, closing_thickness (thickness of the closing panels) we should get from can
 
         # Define constants
@@ -94,7 +94,7 @@ def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_
     #function returns a list of the masses of all panels (look at the numbering image for indexes), and the total sandwich panel mass
     return mass_list, total_panel_mass
 
-def force_on_lug_propellant_tank(n_lugs_propellant, alpha):  #alpha angle between lugs in radians, can be chosen
+def force_on_lug_propellant_tank(n_lugs_propellant, alpha): #LOIC AND INEZ 5.6 alpha angle between lugs in radians, can be chosen
             #DEFINE CONSTANTS
     m_propellant = 6.76 + 7.7  # kg, both tank and fuel
     g = 9.80665  # m/s^2
