@@ -57,7 +57,7 @@ def new_dimensions(a_xtotal, a_ytotal, a_ztotal, n_fasteners, list_mass):
         Results_list.append((W_new, D_new, H_new, T_new, B_x, B_y, B_z))
     return (Results_list)
 
-def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_floors): #LOIC AND INEZ 5.6
+def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_floors): #LOIC AND INEZ 5.4
     #transverse_thickness (thickness of the transverse panels) we should get from cian and liv, as well as the width, depth, L, R and n_floors, closing_thickness (thickness of the closing panels) we should get from can
 
         # Define constants
@@ -94,7 +94,7 @@ def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_
     #function returns a list of the masses of all panels (look at the numbering image for indexes), and the total sandwich panel mass
     return mass_list, total_panel_mass
 
-def force_on_lug_propellant_tank(n_lugs_propellant, alpha): #LOIC AND INEZ 5.6 alpha angle between lugs in radians, can be chosen
+def force_on_lug_propellant_tank(n_lugs_propellant, alpha): #LOIC AND INEZ 5.4 alpha angle between lugs in radians, can be chosen
             #DEFINE CONSTANTS
     m_propellant = 6.76 + 7.7  # kg, both tank and fuel
     g = 9.80665  # m/s^2
@@ -169,4 +169,26 @@ def force_on_lug_propellant_tank(n_lugs_propellant, alpha): #LOIC AND INEZ 5.6 a
     forces_lower_CASE2 = forces_lower_CASE2 / n_lugs_propellant * 2
 
     return forces_upper_CASE1, forces_lower_CASE1, forces_upper_CASE2, forces_lower_CASE2
+
+def propellant_lugs_mass(forces_list_new):
+                #Define constants
+    #PREVIOUS BACKPLATE DATA
+    #    PREVIOUS FORCES
+    forces_list_old = [209.07, 195.98, 73.3]
+    #  PREVIOUS DIMENSIONS
+    Mass = 0.009 #kg
+
+    max_ratio = 0
+    for i in range(len(forces_list_new)):
+        force_old = forces_list_old[i]
+        force_new = forces_list_new[i]
+        current_ratio = force_new / force_old
+        max_ratio = max(current_ratio, max_ratio)
+
+    Mass
+
+
+
+
+
 
