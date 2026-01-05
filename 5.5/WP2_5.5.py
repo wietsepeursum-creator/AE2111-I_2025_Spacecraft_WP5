@@ -169,7 +169,7 @@ def force_on_lug_propellant_tank(n_lugs_propellant, alpha): #LOIC AND INEZ 5.4
     forces_lower_CASE2 = forces_lower_CASE2 / n_lugs_propellant * 2
     return [forces_upper_CASE1, forces_lower_CASE1, forces_upper_CASE2, forces_lower_CASE2]
 
-def mass_scaling_propellant_lugs(forces_list_new): #LOIC AND INEZ 6.4
+def mass_scaling_propellant_lugs(forces_list_new): #LOIC AND INEZ 5.4
     #This function takes as an input the forces that work on the lug in a specific configuration, and scales them with the old forces to calculate the mass of the new lug
 
     #DATA FROM PREVIOUS LUG
@@ -193,7 +193,7 @@ def mass_scaling_propellant_lugs(forces_list_new): #LOIC AND INEZ 6.4
     #returns the new mass of lug in this configuration
     return mass_new
 
-def total_mass_propellant_lugs(alpha):  #LOIC AND INEZ 6.5 FINAL FUNCTION, use this one for WEIGHT OF LUGS THAT ATTACH TO PROPELLANT TANK (it calls the other two)
+def total_mass_propellant_lugs(alpha):  #LOIC AND INEZ 5.4 FINAL FUNCTION, use this one for WEIGHT OF LUGS THAT ATTACH TO PROPELLANT TANK (it calls the other two)
     #FINAL FUNCTION THAT SHOULD BE CALLED FOR PROPELLANT LUGS MASS
     #it chooses the amount of lugs and calculates the total weight
 
