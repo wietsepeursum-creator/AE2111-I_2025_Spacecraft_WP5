@@ -94,7 +94,7 @@ def panel_weight(transverse_thickness, closing_thickness, width, depth, L, R, n_
     #function returns a list of the masses of all panels (look at the numbering image for indexes), and the total sandwich panel mass
     return mass_list, total_panel_mass
 
-def force_on_lug_propellant_tank(n_lugs_propellant, alpha): #LOIC AND INEZ 5.4 alpha angle between lugs in radians, can be chosen
+def force_on_lug_propellant_tank(n_lugs_propellant, alpha): #LOIC AND INEZ 5.4
             #DEFINE CONSTANTS
     m_propellant = 6.76 + 7.7  # kg, both tank and fuel
     g = 9.80665  # m/s^2
@@ -193,7 +193,7 @@ def mass_scaling_propellant_lugs(forces_list_new): #LOIC AND INEZ 6.4
     #returns the new mass of lug in this configuration
     return mass_new
 
-def total_mass_propellant_lugs(alpha):  #LOIC AND INEZ 6.5
+def total_mass_propellant_lugs(alpha):  #LOIC AND INEZ 6.5 FINAL FUNCTION, use this one for WEIGHT OF LUGS THAT ATTACH TO PROPELLANT TANK (it calls the other two)
     #FINAL FUNCTION THAT SHOULD BE CALLED FOR PROPELLANT LUGS MASS
     #it chooses the amount of lugs and calculates the total weight
 
